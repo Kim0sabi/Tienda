@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Accesorios de Piel para Dama</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Apply Inter font to the body */
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Add padding to the body to prevent content from being hidden by the fixed header */
+            padding-top: 64px; /* Adjust this value based on the actual header height */
+        }
+        /* Style for the custom message box */
+        .message-box {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4CAF50; /* Green background */
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .message-box.show {
+            opacity: 1;
+        }
+        /* Style for the fixed header */
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 50; /* Ensure the header is above other content */
+        }
+        /* Style for product title links */
+        .product-title-link {
+            color: inherit; /* Inherit text color */
+            text-decoration: none; /* Remove underline */
+        }
+        .product-title-link:hover {
+            color: #8b5cf6; /* Change color on hover (purple-600) */
+            text-decoration: underline; /* Add underline on hover */
+        }
+         /* Style for the cart icon in the header */
+        .cart-icon {
+            color: #8b5cf6; /* purple-600 */
+            font-size: 1.5rem;
+            margin-left: 1.5rem;
+            cursor: pointer;
+            position: relative; /* Needed for the badge positioning */
+        }
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ef4444; /* red-500 */
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 50%;
+            padding: 2px 6px;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-pink-100 to-purple-100">
+
+    <div id="custom-message-box" class="message-box hidden"></div>
+
+    <header class="bg-white shadow-md py-4 fixed-header">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <h1 class="text-2xl font-semibold text-brown-500">ELEGANCIA EN PIEL </h1>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6 items-center">
+                    <li><a href="#coleccion" class="text-gray-700 hover:text-purple-600 transition duration-300">Colección</a></li>
+                    <li><a href="#nosotros" class="text-gray-700 hover:text-purple-600 transition duration-300">Nosotros</a></li>
+                    <li><a href="#contacto" class="text-gray-700 hover:text-purple-600 transition duration-300">Contacto</a></li>
+                    <li><a href="#bolsos" class="text-gray-700 hover:text-purple-600 transition duration-300">Bolsos</a></li>
+                    <li><a href="#carteras" class="text-gray-700 hover:text-purple-600 transition duration-300">Carteras</a></li>
+                    <li><a href="#accesorios" class="text-gray-700 hover:text-purple-600 transition duration-300">Accesorios</a></li>
+                    <li>
+                        <a href="carrito.html" class="cart-icon" aria-label="Carrito de Compras">
+                             <i class="fas fa-shopping-cart"></i>
+                             <span id="cart-count-desktop" class="cart-badge hidden">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="md:hidden flex items-center">
+                 <a href="carrito.html" class="cart-icon mr-4" aria-label="Carrito de Compras">
+                     <i class="fas fa-shopping-cart"></i>
+                     <span id="cart-count-mobile" class="cart-badge hidden">0</span>
+                 </a>
+                <button id="menu-button" class="text-gray-700 hover:text-purple-600 focus:outline-none focus:shadow-outline rounded-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                </button>
+                <div id="mobile-menu" class="hidden absolute top-16 right-4 bg-white shadow-lg rounded-md py-2 px-4 space-y-2 z-50">
+                    <a href="#coleccion" class="block text-gray-700 hover:text-purple-600 transition duration-300">Colección</a>
+                    <a href="#nosotros" class="block text-gray-700 hover:text-purple-600 transition duration-300">Nosotros</a>
+                    <a href="#contacto" class="block text-gray-700 hover:text-purple-600 transition duration-300">Contacto</a>
+                    <a href="#bolsos" class="block text-gray-700 hover:text-purple-600 transition duration-300">Bolsos</a>
+                    <a href="#carteras" class="block text-gray-700 hover:text-purple-600 transition duration-300">Carteras</a>
+                    <a href="#accesorios" class="block text-gray-700 hover:text-purple-600 transition duration-300">Accesorios</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-gradient-to-br from-pink-50 to-purple-50 py-20 px-4 text-center">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-4">Accesorios de Piel Exclusivos</h2>
+            <p class="text-lg text-gray-600 mb-8">Descubre nuestra nueva colección de accesorios de piel de la más alta calidad.</p>
+            <button onclick="window.location.href='#coleccion'" class="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-semibold py-3 px-6 rounded-full transition duration-300 shadow-lg">Ver Colección</button>
+        </div>
+    </section>
+
+    <section id="coleccion" class="py-16 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-2xl font-semibold text-gray-800 text-center mb-8">Nuestra Colección</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://m.media-amazon.com/images/I/719PTUYASPL._AC_SL1002_.jpg" alt="Bolso de Piel Marrón" class="w-full h-64 object-contain" onerror="this.onerror=null; this.src='https://placehold.co/400x300/EEE/31343C?text=Imagen+no+disponible';">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                            <a href="bolso_marron.html" class="product-title-link">Bolso de Piel Marrón</a>
+                        </h3>
+                        <p class="text-gray-600 mb-4">Bolso de piel de alta calidad, perfecto para cualquier ocasión.</p>
+                        <p class="text-gray-800 font-bold text-xl">$150.00</p>
+                        <button onclick="agregarAlCarrito({ id: 'bm001', nombre: 'Bolso de Piel Marrón', precio: 150.00 })" class="mt-4 bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300 w-full shadow-md">Añadir al Carrito</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://th.bing.com/th/id/OIP.w9mmdQ4UqAA-judAzlgTKwHaIa?rs=1&pid=ImgDetMain" alt="Cartera de Piel Negra" class="w-full h-64 object-contain" onerror="this.onerror=null; this.src='https://placehold.co/400x300/EEE/31343C?text=Imagen+no+disponible';">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                             <a href="cartera_negra.html" class="product-title-link">Cartera de Piel Negra</a>
+                        </h3>
+                        <p class="text-gray-600 mb-4">Elegante cartera de piel, ideal para uso diario.</p>
+                        <p class="text-gray-800 font-bold text-xl">$80.00</p>
+                        <button onclick="agregarAlCarrito({ id: 'cn001', nombre: 'Cartera de Piel Negra', precio: 80.00 })" class="mt-4 bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300 w-full shadow-md">Añadir al Carrito</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://www.silbonshop.com/cdn/shop/files/34334.jpg?v=1723823449&width=1920" alt="Llavero de Piel Trenzado" class="w-full h-64 object-contain" onerror="this.onerror=null; this.src='https://placehold.co/400x300/EEE/31343C?text=Imagen+no+disponible';">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                             <a href="llavero_trenzado.html" class="product-title-link">Llavero de Piel Trenzado</a>
+                        </h3>
+                        <p class="text-gray-600 mb-4">Llavero de piel hecho a mano, un detalle único.</p>
+                        <p class="text-gray-800 font-bold text-xl">$25.00</p>
+                        <button onclick="agregarAlCarrito({ id: 'lt001', nombre: 'Llavero de Piel Trenzado', precio: 25.00 })" class="mt-4 bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300 w-full shadow-md">Añadir al Carrito</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="nosotros" class="bg-gradient-to-r from-pink-50 to-purple-50 py-16 px-4">
+        <div class="container mx-auto grid md:grid-cols-2 gap-8 items-center">
+            <div>
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Sobre Nosotros</h2>
+                <p class="text-600 text-lg">
+                    Somos una empresa dedicada a la creación de accesorios de piel de la más alta calidad.
+                    Nuestros productos son elaborados por expertos artesanos, combinando tradición y diseño
+                    contemporáneo. Nos apasiona el detalle y la calidad de cada pieza que creamos.
+                </p>
+            </div>
+            <div class="hidden md:block">
+                <img src="https://puchitos.com/themes/leo_minimal/assets/img/modules/appagebuilder/images/PUCHITOS_imagenes.png" alt="Artesanos trabajando la piel" class="rounded-lg shadow-md object-contain" onerror="this.onerror=null; this.src='https://placehold.co/600x400/EEE/31343C?text=Imagen+no+disponible';">
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="py-16 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-2xl font-semibold text-gray-800 text-center mb-8">Contáctanos</h2>
+            <div class="bg-white rounded-lg shadow-md p-8 max-w-lg mx-auto">
+                <form id="contact-form" class="space-y-6">
+                    <div>
+                        <label for="nombre" class="block text-gray-700 text-sm font-bold mb-2">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline rounded-md" placeholder="Tu Nombre" required>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+                        <input type="email" id="email" name="email" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline rounded-md" placeholder="Tu Email" required>
+                    </div>
+                    <div>
+                        <label for="mensaje" class="block text-gray-700 text-sm font-bold mb-2">Mensaje:</label>
+                        <textarea id="mensaje" name="mensaje" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-32 resize-y rounded-md" placeholder="Tu Mensaje" required></textarea>
+                    </div>
+                    <button type="submit" class="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-semibold py-3 px-6 rounded-full transition duration-300 w-full shadow-lg">Enviar Mensaje</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="bolsos" class="py-16 px-4 bg-gradient-to-r from-pink-50 to-purple-50">
+        <div class="container mx-auto">
+            <h2 class="text-2xl font-semibold text-gray-800 text-center mb-8">Bolsos</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://images-na.ssl-images-amazon.com/images/I/712Ac93xBhL._AC_SL1500_.jpg" alt="Bolso de Mano de Piel" class="w-full h-64 object-contain" onerror="this.onerror=null; this.src='https://placehold.co/400x300/EEE/31343C?text=Imagen+no+disponible';">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                            <a href="bolso_mano.html" class="product-title-link">Bolso de Mano</a>
+                        </h3>
+                        <p class="text-gray-600 mb-4">Elegante bolso de mano, perfecto para eventos especiales.</p>
+                        <p class="text-gray-800 font-bold text-xl">$200.00</p>
+                        <button onclick="agregarAlCarrito({ id: 'bm002', nombre: 'Bolso de Mano', precio: 200.00 })" class="mt-4 bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300 w-full shadow-md">Añadir al Carrito</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://images-na.ssl-images-amazon.com/images/I/61rcAMT7vjL._AC_SL1200_.jpg" alt="Bolso Bandolera de Piel" class="w-full h-64 object-contain" onerror="this.onerror=null; this.src='https://placehold.co/400x300/EEE/31343C?text=Imagen+no+disponible';">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                            <a href="bolso_bandolera.html" class="product-title-link">Bolso Bandolera</a>
+                        </h3>
+                        <p class="text-gray-600 mb-4">Práctico bolso bandolera, ideal para el día a día.</p>
+                        <p class="text-gray-800 font-bold text-xl">$120.00</p>
+                        <button onclick="agregarAlCarrito({ id: 'bb001', nombre: 'Bolso Bandolera', precio: 120.00 })" class="mt-4 bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300 w-full shadow-md">Añadir al Carrito</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://vianala.com/wp-content/uploads/2019/10/705_MIEL.jpg" alt="Bolso Tote de Piel" class="w-full h-64 object-contain" onerror="this.onerror=null; this.src='https://placehold.co/400x300/EEE/31343C?text=Imagen+no+disponible';">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                            <a href="bolso_tote.html" class="product-title-link">Bolso Tote</a>
+                        </h3>
+                        <p class="text-gray-600 mb-4">Amplio bolso tote, perfecto para llevar todo lo que necesitas.</p>
+                        <p class="text-gray-800 font-bold text-xl">$180.00</p>
+                        <button onclick="agregarAlCarrito({ id: 'bt001', nombre: 'Bolso Tote', precio: 180.00 })" class="mt-4 bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300 w-full shadow-md">Añadir al Carrito</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="carteras" class="py-16 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-2xl font-semibold text-gray-800 text-center mb-8">Carteras</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://images-na.ssl-images-amazon.com/images/I/71lkNfuh22L._AC_SL1200_.jpg" alt="Cartera Clásica de Piel" class="w-full h-64 object-contain" onerror="this.onerror=null; this.src='https://placehold.co/400x300/EEE/31343C?text=Imagen+no+disponible';">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                            <a href="cartera_clasica.html" class="product-title-link">Cartera Clásica</a>
+                        </h3>
+                        <p class="text-gray-600 mb-4">Cartera de piel clásica, elegante y funcional.</p>
+                        <p class="text-gray-800 font-bold text-xl">$90.00</p>
+                        <button onclick="agregarAlCarrito({ id: 'cc001', nombre: 'Cartera Clásica', precio: 90.00 })" class="mt-4 bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300 w-full shadow-md">Añadir al Carrito</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://www.carterasybilleteros.es/large/CARTERA-MUJER-EN-PIEL-VACUNO-TIPO-SOBRE-CON-CREMALLERA-i2813.jpg" alt="Cartera con Cremallera de Piel" class="w-full h-64 object-contain" onerror="this.onerror=null; this.src='https://placehold.co/400x300/EEE/31343C?text=Imagen+no+disponible';">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                            <a href="cartera_cremallera.html" class="product-title-link">Cartera con Cremallera</a>
+                        </h3>
+                        <p class="text-gray-600 mb-4">Cartera de piel con cremallera, segura y estilizada.</p>
+                        <p class="text-gray-800 font-bold text-xl">$110.00</p>
+                        <button onclick="agregarAlCarrito({ id: 'cz001', nombre: 'Cartera con Cremallera', precio: 110.00 })" class="mt-4 bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300 w-full shadow-md">Añadir al Carrito</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://th.bing.com/th/id/OIP.HY0oKaDvVTffpN0KzzfI7gHaJD?cb=iwp1&rs=1&pid=ImgDetMain" alt="Cartera de Tarjetas de Piel" class="w-full h-64 object-contain" onerror="this.onerror=null; this.src='https://placehold.co/400x300/EEE/31343C?text=Imagen+no+disponible';">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                            <a href="cartera_tarjetas.html" class="product-title-link">Cartera de Tarjetas</a>
+                        </h3>
+                        <p class="text-gray-600 mb-4">Cartera de piel compacta, ideal para tarjetas.</p>
+                        <p class="text-gray-800 font-bold text-xl">$60.00</p>
+                        <button onclick="agregarAlCarrito({ id: 'ct001', nombre: 'Cartera de Tarjetas', precio: 60.00 })" class="mt-4 bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300 w-full shadow-md">Añadir al Carrito</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="accesorios" class="py-16 px-4 bg-gradient-to-r from-pink-50 to-purple-50">
+        <div class="container mx-auto">
+            <h2 class="text-2xl font-semibold text-gray-800 text-center mb-8">Otros Accesorios</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://images-na.ssl-images-amazon.com/images/I/61QRAvyTe3L._AC_SL1500_.jpg" alt="Cinturón de Piel" class="w-full h-64 object-contain" onerror="this.onerror=null; this.src='https://placehold.co/400x300/EEE/31343C?text=Imagen+no+disponible';">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                            <a href="cinturon_piel.html" class="product-title-link">Cinturón de Piel</a>
+                        </h3>
+                        <p class="text-gray-600 mb-4">Cinturón de piel elegante, el complemento perfecto.</p>
+                        <p class="text-gray-800 font-bold text-xl">$75.00</p>
+                        <button onclick="agregarAlCarrito({ id: 'cp001', nombre: 'Cinturón de Piel', precio: 75.00 })" class="mt-4 bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300 w-full shadow-md">Añadir al Carrito</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://i.etsystatic.com/9689787/r/il/3e0e3f/3144503802/il_1080xN.3144503802_9kve.jpg" alt="Llavero de Piel Personalizado" class="w-full h-64 object-contain" onerror="this.onerror=null; this.src='https://placehold.co/400x300/EEE/31343C?text=Imagen+no+disponible';">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                            <a href="llavero_personalizado.html" class="product-title-link">Llavero Personalizado</a>
+                        </h3>
+                        <p class="text-gray-600 mb-4">Llavero de piel hecho a mano, un detalle único.</p>
+                        <p class="text-gray-800 font-bold text-xl">$30.00</p>
+                        <button onclick="agregarAlCarrito({ id: 'lp001', nombre: 'Llavero Personalizado', precio: 30.00 })" class="mt-4 bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300 w-full shadow-md">Añadir al Carrito</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://images-na.ssl-images-amazon.com/images/I/81OSGeP0l5L._AC_SL1500_.jpg" alt="Funda de Piel para Teléfono" class="w-full h-64 object-contain" onerror="this.onerror=null; this.src='https://placehold.co/400x300/EEE/31343C?text=Imagen+no+disponible';">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                            <a href="funda_telefono.html" class="product-title-link">Funda para Teléfono</a>
+                        </h3>
+                        <p class="text-gray-600 mb-4">Funda de piel para teléfono, protección con estilo.</p>
+                        <p class="text-gray-800 font-bold text-xl">$50.00</p>
+                        <button onclick="agregarAlCarrito({ id: 'ft001', nombre: 'Funda para Teléfono', precio: 50.00 })" class="mt-4 bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300 w-full shadow-md">Añadir al Carrito</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact-info" class="py-16 px-4 bg-white">
+        <div class="container mx-auto">
+            <h2 class="text-2xl font-semibold text-gray-800 text-center mb-8">Información de Contacto</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-center">
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Dirección</h3>
+                    <p class="text-gray-600">Avenida Siempreviva 742, Springfield, EUA</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Teléfono</h3>
+                    <p class="text-gray-600">+123 456 7890</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Correo Electrónico</h3>
+                    <p class="text-gray-600">info@eleganciaenpiel.com</p>
+                </div>
+                <div class="text-center">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Síguenos</h3>
+                    <div class="flex justify-center space-x-4 text-gray-600 text-2xl">
+                        <a href="#" class="hover:text-purple-600 transition duration-300" aria-label="Facebook">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="hover:text-purple-600 transition duration-300" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="hover:text-purple-600 transition duration-300" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto px-4 text-center">
+            <p>© 2025 Elegancia en Piel. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for mobile menu toggle
+        const menuButton = document.getElementById('menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (menuButton && mobileMenu) {
+            menuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Close mobile menu when a link is clicked
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+
+        // JavaScript for contact form submission (basic example)
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (event) => {
+                event.preventDefault(); // Prevent actual form submission
+                showMessage('Mensaje enviado. Te contactaremos a la brevedad.'); // Show custom message
+                contactForm.reset(); // Reset the form
+            });
+        }
+
+        // Function to display a custom message
+        function showMessage(message) {
+            const messageBox = document.getElementById('custom-message-box');
+            if (messageBox) {
+                messageBox.textContent = message;
+                messageBox.classList.remove('hidden');
+                // Trigger reflow to ensure transition works
+                void messageBox.offsetWidth;
+                messageBox.classList.add('show');
+
+                // Hide the message after 3 seconds
+                setTimeout(() => {
+                    messageBox.classList.remove('show');
+                    // Hide completely after transition
+                    messageBox.addEventListener('transitionend', () => {
+                        messageBox.classList.add('hidden');
+                    }, { once: true });
+                }, 3000);
+            }
+        }
+
+        // --- Shopping Cart Logic ---
+        // Initialize cart from localStorage or as an empty array
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        const cartCountDesktop = document.getElementById('cart-count-desktop');
+        const cartCountMobile = document.getElementById('cart-count-mobile');
+
+
+        // Function to add a product to the cart
+        function agregarAlCarrito(producto) {
+            // For simplicity, just add the product. For a real app, you'd check for existing items and update quantity.
+            carrito.push(producto);
+
+            // Save the updated cart to localStorage
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+
+            console.log("Carrito actual:", carrito); // Log the cart to the console
+            showMessage('Producto añadido al carrito'); // Show confirmation message
+            updateCartCount(); // Update the cart count badge
+        }
+
+        // Function to update the cart count badge
+        function updateCartCount() {
+            const itemCount = carrito.length;
+            if (itemCount > 0) {
+                cartCountDesktop.textContent = itemCount;
+                cartCountMobile.textContent = itemCount;
+                cartCountDesktop.classList.remove('hidden');
+                cartCountMobile.classList.remove('hidden');
+            } else {
+                cartCountDesktop.classList.add('hidden');
+                cartCountMobile.classList.add('hidden');
+            }
+        }
+
+        // Initial update of the cart count when the page loads
+        document.addEventListener('DOMContentLoaded', updateCartCount);
+
+    </script>
+</body>
+</html>

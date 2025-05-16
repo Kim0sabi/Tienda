@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Apply Inter font to the body */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3e8ff; /* purple-100 */
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+        .container {
+            max-width: 800px;
+        }
+        #carrito-display {
+            padding: 1.5rem;
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #carrito-display h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        #carrito-items {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.5rem;
+        }
+        #carrito-items li {
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+         #carrito-items li:last-child {
+            border-bottom: none;
+        }
+        .item-details {
+            flex-grow: 1;
+            margin-right: 1rem;
+            color: #555; /* Slightly darker text for item details */
+        }
+        .item-details span {
+            font-weight: 600;
+            color: #333; /* Stronger color for item name */
+        }
+        .item-price {
+            font-weight: 700;
+            color: #8b5cf6; /* purple-600 */
+            margin-right: 1rem; /* Space between price and remove button */
+        }
+        .remove-button {
+            background-color: #ef4444; /* red-500 */
+            color: white;
+            border: none;
+            border-radius: 0.25rem; /* rounded */
+            padding: 0.25rem 0.5rem;
+            cursor: pointer;
+            font-size: 0.875rem; /* text-sm */
+            transition: background-color 0.3s ease;
+        }
+        .remove-button:hover {
+            background-color: #dc2626; /* red-600 */
+        }
+        .empty-cart-message {
+            text-align: center;
+            color: #777;
+            font-style: italic;
+            padding: 1rem 0;
+        }
+        .total-summary {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 2px solid #eee;
+            text-align: right;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #333;
+        }
+         .button-back {
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            /* Added fallback background-color and !important to color */
+            background-color: #a855f7; /* purple-500 fallback */
+            background-image: linear-gradient(to right, var(--tw-gradient-stops));
+            --tw-gradient-from: #a855f7; /* purple-500 */
+            --tw-gradient-to: #ec4899; /* pink-500 */
+            color: white !important; /* Ensure text color is white */
+            font-weight: 600;
+            padding: 0.75rem 1.5rem; /* py-3 px-6 */
+            border-radius: 9999px; /* rounded-full */
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 300ms;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+            margin-top: 1.5rem;
+        }
+         .button-back:hover {
+            --tw-gradient-from: #9333ea; /* purple-600 */
+            --tw-gradient-to: #db2777; /* pink-600 */
+        }
+        .checkout-button {
+             display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            /* Added fallback background-color and !important to color */
+            background-color: #3b82f6; /* blue-500 fallback */
+             background-image: linear-gradient(to right, var(--tw-gradient-stops));
+            --tw-gradient-from: #3b82f6; /* blue-500 */
+            --tw-gradient-to: #22c55e; /* green-500 */
+            color: white !important; /* Ensure text color is white */
+            font-weight: 600;
+            padding: 0.75rem 1.5rem; /* py-3 px-6 */
+            border-radius: 9999px; /* rounded-full */
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 300ms;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+            margin-top: 1.5rem;
+             margin-left: 1rem; /* Space between back and checkout buttons */
+        }
+        .checkout-button:hover {
+             --tw-gradient-from: #2563eb; /* blue-600 */
+            --tw-gradient-to: #16a34a; /* green-600 */
+        }
+         .button-container {
+            text-align: center;
+            margin-top: 2rem;
+         }
+
+    </style>
+</head>
+<body>
+
+    <div class="container mx-auto px-4" id="carrito-display">
+        <h1>Tu Carrito de Compras</h1>
+        <ul id="carrito-items">
+            <li class="empty-cart-message">Cargando carrito...</li>
+        </ul>
+        <div id="carrito-total" class="total-summary hidden">
+            Total: <span id="total-amount">$0.00</span>
+        </div>
+
+        <div class="button-container">
+             <a href="leather_store.html" class="button-back">Volver a la Tienda</a>
+             <button onclick="procederPago()" class="checkout-button">Pasar a Pago</button>
+        </div>
+    </div>
+
+    <script>
+        // Get cart data from localStorage
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        const carritoItemsUl = document.getElementById('carrito-items');
+        const carritoTotalDiv = document.getElementById('carrito-total');
+        const totalAmountSpan = document.getElementById('total-amount');
+
+        // Function to render cart items
+        function renderCarrito() {
+            // Clear current cart display
+            carritoItemsUl.innerHTML = '';
+            let total = 0;
+
+            if (carrito.length === 0) {
+                // Show empty cart message if no items
+                const li = document.createElement('li');
+                li.classList.add('empty-cart-message');
+                li.textContent = 'Tu carrito está vacío.';
+                carritoItemsUl.appendChild(li);
+                carritoTotalDiv.classList.add('hidden'); // Hide total if cart is empty
+            } else {
+                // Populate the cart display with items
+                carrito.forEach((item, index) => {
+                    const li = document.createElement('li');
+                    // Use index for a simple way to remove items for now.
+                    // In a real app, you'd manage quantities and unique item identifiers.
+                    li.innerHTML = `
+                        <div class="item-details">
+                            <span>${item.nombre}</span>
+                        </div>
+                        <span class="item-price">$${item.precio.toFixed(2)}</span>
+                        <button class="remove-button" onclick="eliminarDelCarrito(${index})">
+                             <i class="fas fa-trash-alt"></i>
+                        </button>
+                    `;
+                    carritoItemsUl.appendChild(li);
+                    total += item.precio; // Calculate total
+                });
+                 carritoTotalDiv.classList.remove('hidden'); // Show total if cart has items
+                 totalAmountSpan.textContent = `$${total.toFixed(2)}`; // Update total amount
+            }
+        }
+
+        // Function to remove an item from the cart
+        function eliminarDelCarrito(index) {
+            // Remove the item at the specified index
+            carrito.splice(index, 1);
+
+            // Save the updated cart to localStorage
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+
+            console.log("Carrito actualizado después de eliminar:", carrito); // Log the updated cart
+            renderCarrito(); // Re-render the cart display
+        }
+
+        // Placeholder function for checkout
+        function procederPago() {
+            // In a real application, this would lead to a payment page or process.
+            alert("Procediendo al pago (funcionalidad no implementada)");
+            // You would typically clear the cart after a successful checkout:
+            // carrito = [];
+            // localStorage.removeItem('carrito');
+            // renderCarrito();
+        }
+
+
+        // Render the cart when the page loads
+        document.addEventListener('DOMContentLoaded', renderCarrito);
+    </script>
+</body>
+</html>
